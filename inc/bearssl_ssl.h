@@ -1236,6 +1236,15 @@ br_ssl_engine_remove_flags(br_ssl_engine_context *cc, uint32_t flags)
 #define BR_OPT_FAIL_ON_ALPN_MISMATCH           ((uint32_t)1 << 3)
 
 /**
+ * \brief Behavioural flag: force request client certificate.
+ *
+ * If this flag is set, then client certificate will always be requested
+ * even trust anchor was not set.
+ */
+#define BR_OPT_REQUEST_CLIENT_CERTIFICATE      ((uint32_t)1 << 4)
+
+/**
+/**
  * \brief Set the minimum and maximum supported protocol versions.
  *
  * The two provided versions MUST be supported by the implementation

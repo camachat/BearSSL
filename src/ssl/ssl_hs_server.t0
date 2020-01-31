@@ -1411,7 +1411,7 @@ cc: verify-CV-sig ( sig-len -- err ) {
 		write-ServerHello
 		write-Certificate drop
 		write-ServerKeyExchange
-		ta-names-total-length if
+		ta-names-total-length 0 > 4 flag? or if
 			write-CertificateRequest
 		then
 		write-ServerHelloDone
@@ -1419,7 +1419,7 @@ cc: verify-CV-sig ( sig-len -- err ) {
 
 		\ If we sent a CertificateRequest then we expect a
 		\ Certificate message.
-		ta-names-total-length if
+		ta-names-total-length 0 > 4 flag? or if
 			\ Read client certificate.
 			0 read-Certificate
 
