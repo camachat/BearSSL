@@ -250,14 +250,27 @@ print_ec(const br_ec_private_key *sk, outspec *os)
 	size_t len;
 	int r;
 
+	if (br_ec_compute_pub(br_ec_get_default(), &pk, kbuf, sk) == 0) {
+		fprintf(stderr,
+			"ERROR: cannot re-encode (unsupported curve)\n");
+		return 0;
+	}
+
 	if (os->print_text) {
 		print_int_text("x", sk->x, sk->xlen);
+		print_int_text("q", pk.q, pk.qlen);
 	}
 	if (os->print_C) {
 		print_int_C("EC_X", sk->x, sk->xlen);
-		printf("\nstatic const br_ec_private_key EC = {\n");
+		printf("\nstatic const br_ec_private_key EC_PRI = {\n");
 		printf("\t%d,\n", sk->curve);
 		printf("\t(unsigned char *)EC_X, sizeof EC_X\n");
+		printf("};\n");
+
+		print_int_C("EC_Q", pk.q, pk.qlen);
+		printf("\nstatic const br_ec_public_key EC_PUB = {\n");
+		printf("\t%d,\n", pk.curve);
+		printf("\t(unsigned char *)EC_Q, sizeof EC_Q\n");
 		printf("};\n");
 	}
 
