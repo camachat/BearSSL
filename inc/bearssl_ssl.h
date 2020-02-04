@@ -1244,7 +1244,6 @@ br_ssl_engine_remove_flags(br_ssl_engine_context *cc, uint32_t flags)
 #define BR_OPT_REQUEST_CLIENT_CERTIFICATE      ((uint32_t)1 << 4)
 
 /**
-/**
  * \brief Set the minimum and maximum supported protocol versions.
  *
  * The two provided versions MUST be supported by the implementation
